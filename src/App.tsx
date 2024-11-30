@@ -1,35 +1,66 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../src/components/redux/store";
+import {
+  addTask,
+  updateTask,
+  deleteTask,
+  moveTask,
+} from "./components/redux/tasks_slice";
+import TaskInput from "../src/components/task_input";
+import DeleteModal from "./components/modals/DeleteTaskModal";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App: React.FC = () => {
+  const tasks = useSelector((state: RootState) => state.tasks.tasks);
+  const dispatch = useDispatch();
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [taskToDelete, setTaskToDelete] = useState<string | null>(null);
+
+  const handleAddTask = (title: string, desc: string) => {
+    const newTask = { id: Date.now().toString(), title, desc };
+    dispatch(addTask(newTask));
+  };
+
+  const handleUpdateTask = (updatedTask: {
+    id: string;
+    title: string;
+    desc: string;
+  }) => {
+    dispatch(updateTask(updatedTask));
+  };
+
+  const handleOpenDeleteModal = (taskId: string) => {
+    setTaskToDelete(taskId);
+    setModalOpen(true);
+  };
+
+  const handleConfirmDeleteTask = () => {
+    if (taskToDelete) {
+      dispatch(deleteTask(taskToDelete));
+    }
+    setModalOpen(false);
+    setTaskToDelete(null);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className="app">
+      <TaskInput addTask={handleAddTask} />
+      {tasks.length === 0 ? (
+        <p>No tasks</p>
+      ) : (
+        <DraggableTaskList
+          tasks={tasks}
+          onDelete={handleOpenDeleteModal}
+          onSave={handleUpdateTask}
+        />
+      )}
+      <DeleteModal
+        isOpen={isModalOpen}
+        onClose={() => setModalOpen(false)}
+        onConfirm={handleConfirmDeleteTask}
+      />
+    </div>
+  );
+};
 
-export default App
+export default App;
