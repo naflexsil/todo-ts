@@ -1,0 +1,30 @@
+@import "variables";
+
+.interactions-container {
+  display: none;
+  position: absolute !important;
+  bottom: -60px;
+  right: -5px;
+  align-items: center;
+  padding: 10px;
+  color: $hover-border-color;
+}
+
+.task-item.active .interactions-container {
+  display: flex;
+}
+
+.task-icon {
+  width: 24px;
+  height: 24px;
+  margin: 0 5px;
+  cursor: pointer;
+  background-color: $button-bg;
+  border: 2px solid $border-color;
+  border-radius: 8px;
+  padding: 5px;
+
+  &:hover {
+    border-color: $hover-border-color;
+  }
+}

@@ -1,0 +1,63 @@
+@import "variables";
+
+.info-modal-style {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+
+  .info-modal-content {
+    padding: 20px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: $bg-color;
+    border-radius: 8px;
+    text-align: center;
+    color: $text-color;
+    width: 60%;
+    max-width: 800px;
+    height: auto;
+
+    h3 {
+      margin-bottom: 20px;
+    }
+
+    .image-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+
+      img {
+        width: 200px;
+        height: auto;
+        border-radius: 8px;
+      }
+    }
+
+    .modal-buttons {
+      margin-top: 20px;
+
+      button {
+        padding: 10px 20px;
+        border: 2px solid $border-color;
+        background-color: $input-bg;
+        color: $text-color;
+        cursor: pointer;
+        border-radius: 4px;
+
+        &:hover {
+          border-color: $hover-border-color;
+        }
+      }
+    }
+  }
+}
