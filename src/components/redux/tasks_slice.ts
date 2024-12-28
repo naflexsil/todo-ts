@@ -36,8 +36,9 @@ const tasksSlice = createSlice({
       state,
       action: PayloadAction<{ fromIndex: number; toIndex: number }>
     ) {
-      const [movedTask] = state.tasks.splice(action.payload.fromIndex, 1);
-      state.tasks.splice(action.payload.toIndex, 0, movedTask);
+      const { fromIndex, toIndex } = action.payload;
+      const [movedTask] = state.tasks.splice(fromIndex, 1);
+      state.tasks.splice(toIndex, 0, movedTask);
     },
   },
 });

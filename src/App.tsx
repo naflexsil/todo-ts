@@ -6,9 +6,10 @@ import {
   updateTask,
   deleteTask,
   moveTask,
-} from "./components/redux/tasks_slice";
+} from "../src/components/redux/tasks_slice";
 import TaskInput from "../src/components/task_input";
-import DeleteModal from "./components/modals/DeleteTaskModal";
+import DeleteModal from "../src/components/modals/delete_task_modal";
+import DraggableTaskList from "../src/components/draggable_task_list";
 
 const App: React.FC = () => {
   const tasks = useSelector((state: RootState) => state.tasks.tasks);
@@ -42,6 +43,25 @@ const App: React.FC = () => {
     setTaskToDelete(null);
   };
 
+  const handleDragStart = (
+    event: React.DragEvent<HTMLDivElement>,
+    index: number
+  ) => {
+    event.dataTransfer.setData("taskIndex", index.toString());
+  };
+
+  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    const fromIndex = parseInt(event.dataTransfer.getData("taskIndex"), 10);
+    const toIndex = parseInt(event.currentTarget.dataset.index || "-1", 10);
+    if (fromIndex !== toIndex && toIndex >= 0) {
+      dispatch(moveTask({ fromIndex, toIndex }));
+    }
+  };
+
+  const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+  };
+
   return (
     <div className="app">
       <TaskInput addTask={handleAddTask} />
@@ -52,6 +72,9 @@ const App: React.FC = () => {
           tasks={tasks}
           onDelete={handleOpenDeleteModal}
           onSave={handleUpdateTask}
+          onDragStart={handleDragStart}
+          onDrop={handleDrop}
+          onDragOver={handleDragOver}
         />
       )}
       <DeleteModal

@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
-//import InteractionsButtons from "../components/interactions_menu";
+import InteractionsButtons from "../components/interactions_menu";
 import DeleteTaskButton from "../components/delete_task_button";
-// import EditModal from "../components/modals/edit_modal";
+import EditModal from "../components/modals/edit_modal";
 
 let lastActiveTask: HTMLDivElement | null = null;
 
@@ -19,7 +19,6 @@ const TaskItem: React.FC<TaskItemProps> = ({
   id,
   title,
   desc,
-  index,
   onDelete,
   onSave,
   onDragStart,

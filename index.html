@@ -1,13 +1,39 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
+    <title>React To Do</title>
+    <link rel="stylesheet" href="./src/styles/app.scss" />
+    <script type="module" src="./src/main.tsx"></script>
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <div id="root">
+      <div class="app">
+        <section class="no-tasks">
+          <div class="container">
+            <div class="input-wrapper">
+              <div class="input-group">
+                <input
+                  type="text"
+                  placeholder="Title..."
+                  id="titleInput"
+                  class="task-input title-input"
+                />
+                <input
+                  type="text"
+                  placeholder="About..."
+                  id="descInput"
+                  class="task-input about-input"
+                />
+              </div>
+              <button class="add-task-button" id="addTaskButton">+</button>
+            </div>
+
+            <div class="tasks-list container" id="tasksList"></div>
+          </div>
+        </section>
+      </div>
+    </div>
   </body>
 </html>
