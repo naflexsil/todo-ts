@@ -10,6 +10,7 @@ import {
 import TaskInput from "../src/components/task_input";
 import DeleteModal from "../src/components/modals/delete_task_modal";
 import DraggableTaskList from "../src/components/draggable_task_list";
+import "./styles/app.scss";
 
 const App: React.FC = () => {
   const tasks = useSelector((state: RootState) => state.tasks.tasks);
